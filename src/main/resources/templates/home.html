@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" />
+  <title>Książkoteka - book swap with friends</title>
+      <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<h1>Wszystkie ksiazki</h1>
+<h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+
+
+  
+</body>
+</html>

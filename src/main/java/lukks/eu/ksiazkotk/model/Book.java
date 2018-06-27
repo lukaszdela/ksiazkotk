@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 
@@ -25,13 +24,10 @@ public class Book {
     @JoinColumn(name = "owner")
     private User owner;
 
-    @ManyToOne
-    @JoinColumn(name = "booksA")
-    private User userA;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "borower")
+    private User borower;
 
-    @ManyToOne
-    @JoinColumn(name = "booksB")
-    private User userB;
-
-    private Integer status;
+    @Enumerated(EnumType.STRING)
+    private BookStatus status;
 }
