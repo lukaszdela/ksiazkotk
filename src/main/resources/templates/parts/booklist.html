@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+<div class="container">
+    <div class="row">
+        <th:block th:each="book : ${books}">
+            <div class="col">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td><img alt="" th:src="${book.getCover()}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${book.getTitle()}">...</td>
+                    </tr>
+                    <tr>
+                        <td th:text="${book.getAuthor()}">...</td>
+                    </tr>
+                    <tr>
+                        <td th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}">...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+    </div>
+</div>

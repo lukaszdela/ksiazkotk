@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+<div class="container">
+    <div class="row">
+        <th:block th:each="user : ${users}">
+            <div class="col">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td><img alt="" th:src="${user.getAvatar()}"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td th:text="${user.getName() + ' ' + user.getSurname()}">...</td>
+                    </tr>
+                    <tr>
+                        <td th:text="${user.getEmail()}">...</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a class="dropdown-item" th:href="@{/books/user/{login}(login=${user.login})}">
+                                <button th:text="check + ' ' + ${user.name} + ' ' + books" type="button" class="btn btn-success btn-transparent"></button>
+                    </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+    </div>
+</div>

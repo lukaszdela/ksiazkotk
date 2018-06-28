@@ -1,46 +1,53 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" />
-  <title>Książkoteka - book swap with friends</title>
-      <link rel="stylesheet" href="css/style.css">
+	<title>Spring Security Example </title>
+	<script th:src="@{/webjars/bootstrap/4.1.1/js/bootstrap.min.js}"></script>
+	<script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/login.css}"/>
 </head>
 
 <body>
-  <body>
-	<div class="login">
-		<div class="login-screen">
-			<div class="app-title">
-				<img alt="" src="images/login.jpg">
-			</div>
 
-			<div class="login-form">
-				<div class="control-group">
+<div class="container">
+	<div class="offset-lg-1 offset-lg-5" th:if="${param.error}">
+		<p style="color: #FFFFFF"> Invalid username and password.</p>
+	</div>
+	<div class="offset-lg-1 offset-lg-5" th:if="${param.logout}">
+		<p style="color: #FFFFFF">You have been logged out.</p>
+	</div>
+</div>
+
+<div class="login">
+	<div class="login-screen">
+		<div class="app-title">
+			<img alt="" th:src="@{/images/logo.jpg}">
+
+
+		</div>
+
+		<div class="login-form">
+			<div class="control-group">
 				<br/>
 				<form method="POST" th:action="@{/login}">
-				<input type="text" class="login-field" value="" placeholder="login" name="username">
-				<label class="login-field-icon fui-user" for="login-name"></label>
-			
-				</div>
+					<input type="text" class="login-field" value="" placeholder="login" name="username">
+					<label class="login-field-icon fui-user"></label>
 
-				<div class="control-group">
-				
-				<input type="password" class="login-field" value="" placeholder="hasło" name="password">
-			
-				<label class="login-field-icon fui-lock" for="login-pass"></label>
-				
-				</div>
-
-				
-			<input class="btn btn-primary btn-large btn-block" type="submit" value="Zaloguj">
-			</form>
-				
 			</div>
-		</div>
-	</div>
-</body>
-  
-  
+
+			<div class="control-group">
+
+				<input type="password" class="login-field" value="" placeholder="password" name="password">
+
+				<label class="login-field-icon fui-lock"></label>
+
+			</div>
+
+
+			<input class="btn btn-primary btn-large btn-block" type="submit" value="Log In">
+			</form>
+
 </body>
 </html>

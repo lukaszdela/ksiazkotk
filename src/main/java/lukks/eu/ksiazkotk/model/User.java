@@ -1,16 +1,13 @@
 package lukks.eu.ksiazkotk.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -22,11 +19,12 @@ public class User {
 
     private String name;
     private String surname;
+    private String login;
     private String email;
-    private String phone;
     private String password;
+    private String avatar;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany
     private List<Book> books;
 
 

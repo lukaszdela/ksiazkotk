@@ -24,10 +24,14 @@ public class SecurityWebConfig  extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/css/**")
                 .permitAll()
+                .antMatchers("/covers/**")
+                .permitAll()
+                .antMatchers("/avatars/**")
+                .permitAll()
                 .antMatchers("/images/**")
                 .permitAll()
                 .antMatchers("/book/**")
-                .hasAnyRole("ADMIN")
+                .hasAnyRole("ADMIN", "USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -52,8 +56,8 @@ public class SecurityWebConfig  extends WebSecurityConfigurerAdapter {
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager(admin);
 
         UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("user")
+                .username("jkowalski")
+                .password("jkowalski")
                 .roles("USER")
                 .build();
 

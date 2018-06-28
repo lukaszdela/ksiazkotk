@@ -5,6 +5,8 @@ import lukks.eu.ksiazkotk.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService implements IBookService{
 
@@ -30,4 +32,23 @@ public class BookService implements IBookService{
         return bookRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public List<Book> getAllFreeBook(String login){
+        return bookRepository.getAllFreeBooks(login);
+    }
+
+    @Override
+    public List<Book> getAllBorrowedBooks(){
+        return bookRepository.getAllBorrowedBooks();
+    }
+
+    @Override
+    public  List<Book> getAllBook(){
+        return bookRepository.findAll();
+    }
+
+    @Override
+    public List<Book> getUserBooks(String login){
+        return bookRepository.getUserBooks(login);
+    }
 }

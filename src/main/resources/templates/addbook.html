@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+<div th:include="@{parts/header.html}"></div>
+    <div id="content-wrap">
+        <div id="sidebar">
+            <h1>Menu</h1>
+            <ul class="sidemenu">
+                <li><a href="twoje.php">Aktywne Ksi±¿ki</a></li>
+                <li><a href="owned.php">Twoje Ksi±¿ki</a></li>
+                <li><a href="dodaj.php">Dodaj Ksi±¿kê</a></li>
+                <li><a href="profil.php">Profil</a></li>
+                <li><a href="wyloguj.php">Wyloguj</a></li>
+            </ul>
+
+            <h1>Statusy</h1>
+            <table style="text-align: center; width: 150px; height: 100px; padding: 5px;" border="0" padding="5" cellpadding="0" cellspacing="0"><tbody>
+            <tr align="center"><td style="height: 25px; background-color: rgb(0, 153, 0);"><span style="font-weight: bold; color: rgb(255, 255, 255);">wolna</span></td></tr>
+            <tr align="center"><td style="height: 25px; background-color: rgb(255, 0, 0);"><span style="font-weight: bold; color: rgb(255, 255, 255);">czyta</span></td></tr>
+            <tr align="center"><td style="height: 25px; background-color: rgb(51, 102, 255);"><span style="font-weight: bold; color: rgb(255, 255, 255);">po¿ycza</span></td></tr>
+            <tr align="center"><td style="height: 25px; background-color: rgb(255, 153, 0);"><span style="font-weight: bold; color: rgb(255, 255, 255);">oddaje</span></td></tr>
+            </tbody></table>
+
+            <h1>Stats</h1>
+
+
+        </div>
+        <div id="main">
+            <br/>
+
+            <form action="dodaj.php?akcja=dodaj" method="POST">
+
+
+                <label for="tytul">Tytu³:</label>
+                <input type="text" id="tytul" name="tytul"/>
+                <br />
+                <label for="autor">Autor:</label>
+                <input type="text" id="autor" name="autor"/>
+                <br/>
+                <br/>
+                <input type="submit" value="Dodaj"/>
+
+            </form>
+
+
+
+
+
+
+
+            <br/>
+
+            <br/>
+        </div>
+    </div>
+    <div id="footer">
+        <p>2017 <strong>Ksi±¿koteka</strong> &nbsp;&nbsp;</p>
+    </div>
+</div>
+</body>
+</html>

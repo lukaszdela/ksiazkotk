@@ -1,14 +1,11 @@
 package lukks.eu.ksiazkotk.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,9 +16,10 @@ public class Book {
     private Long id;
     private String title;
     private String author;
+    private String cover;
 
-    @ManyToOne
-    @JoinColumn(name = "owner")
+    @ManyToOne( cascade = CascadeType.ALL)
+    @JoinColumn(name = "books")
     private User owner;
 
     @OneToOne(fetch = FetchType.LAZY)
