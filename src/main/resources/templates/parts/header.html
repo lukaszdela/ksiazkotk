@@ -34,7 +34,7 @@
                         </form>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users}">
+                        <a class="nav-link" th:href="@{/user}">
                             <button class="btn btn-outline-primary" type="button">User List</button>
                         </a>
                     </li>
@@ -42,10 +42,10 @@
                         <form class="nav-link">
                             <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownUserMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User menu</button>
                             <div class="dropdown-menu" aria-labelledby="dropdownUserMenuButton">
-                                <a class="dropdown-item" href="#">Active books</a>
-                                <a class="dropdown-item" href="#">My books</a>
-                                <a class="dropdown-item" href="#">Add book</a>
-                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" th:href="@{/books/active}">Active books</a>
+                                <a class="dropdown-item" th:href="@{/books/user}">My books</a>
+                                <a class="dropdown-item" th:href="@{/book/addbook}">Add book</a>
+                                <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
                             </div>
                         </form>
                     </li>
@@ -55,8 +55,8 @@
                         </form>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="form-inline my-2 my-lg-0" th:action="@{/books}" method="get">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>

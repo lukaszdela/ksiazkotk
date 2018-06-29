@@ -17,6 +17,7 @@ public class Book {
     private String title;
     private String author;
     private String cover;
+    private Status active;
 
     @ManyToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "books")

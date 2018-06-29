@@ -51,4 +51,19 @@ public class BookService implements IBookService{
     public List<Book> getUserBooks(String login){
         return bookRepository.getUserBooks(login);
     }
+
+    @Override
+    public List<Book> getUserActiveBooks(String login){
+        return bookRepository.getUserActiveBooks(login);
+    }
+
+    @Override
+    public List<Book> searchBooks(String search){
+        return bookRepository.searchBooks(search);
+    }
+
+    @Override
+    public List<Book> getAllBooks(){
+        return bookRepository.getAllBooks();
+    }
 }

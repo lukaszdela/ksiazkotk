@@ -12,4 +12,6 @@ public interface IUserService {
     void readUser(Long id);
 
     List<User> getAllUsers();
+
+    User getUserByLogin(String login);
 }

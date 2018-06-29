@@ -19,6 +19,9 @@
                         <td th:text="${user.getEmail()}">...</td>
                     </tr>
                     <tr>
+                        <td th:text="${user.getPassword()}">...</td>
+                    </tr>
+                    <tr>
                         <td>
                             <a class="dropdown-item" th:href="@{/books/user/{login}(login=${user.login})}">
                                 <button th:text="check + ' ' + ${user.name} + ' ' + books" type="button" class="btn btn-success btn-transparent"></button>

@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+<div class="container">
+    <form class="form-horizontal" th:action="@{/book/addbook/new}" method="post">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Add Book</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Title</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="title" placeholder="" class="form-control input-md" required="" type="text">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="author">Author</label>
+                <div class="col-md-4">
+                    <input id="author" name="author" placeholder="" class="form-control input-md" required="" type="text">
+
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

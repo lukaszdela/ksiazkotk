@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+
+<div class="container">
+    <div>
+        <table>
+            <tbody>
+            <tr>
+                <td><img alt="" th:src="${user.getAvatar()}"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td th:text="${user.getName() + ' ' + user.getSurname()}">...</td>
+            </tr>
+            <tr>
+                <td th:text="${user.getEmail()}">...</td>
+            </tr>
+            <tr>
+                <td th:text="${user.getPassword()}">...</td>
+            </tr>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form class="form-horizontal" id="emailForm" th:action="@{/user/email}" method="post">
+        <fieldset>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">Change Email</label>
+                <div class="col-md-4">
+                    <input id="email" name="email" class="form-control input-md" required type="email">
+
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+    <form class="form-horizontal" id="passwordForm" th:action="@{/user/password}" method="post">
+        <fieldset>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">New password</label>
+                <div class="col-md-4">
+                    <input name="password" id="password" placeholder="" class="form-control input-md" required type="password">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">New password</label>
+                <div class="col-md-4">
+                    <input name="password2" id="password2" placeholder="" class="form-control input-md" required type="password">
+
+                </div>
+            </div>
+
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button id="passButton" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
