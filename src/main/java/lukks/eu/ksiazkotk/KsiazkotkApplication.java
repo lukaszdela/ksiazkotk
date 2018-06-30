@@ -1,16 +1,15 @@
 package lukks.eu.ksiazkotk;
 
-import lukks.eu.ksiazkotk.model.Book;
-import lukks.eu.ksiazkotk.model.BookStatus;
-import lukks.eu.ksiazkotk.model.Status;
-import lukks.eu.ksiazkotk.model.User;
+import lukks.eu.ksiazkotk.model.*;
 import lukks.eu.ksiazkotk.repository.BookRepository;
 import lukks.eu.ksiazkotk.repository.UserRepository;
+import lukks.eu.ksiazkotk.repository.UserRoleRepository;
 import lukks.eu.ksiazkotk.service.IBookService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -26,13 +25,40 @@ public class KsiazkotkApplication {
 
 
 	@Bean
-	public CommandLineRunner commandLineRunner(BookRepository bookRepository, UserRepository userRepository){
+	public CommandLineRunner commandLineRunner(UserRoleRepository userRoleRepository, BookRepository bookRepository, PasswordEncoder passwordEncoder, UserRepository userRepository){
 		return args -> {
-			User jkowalski = User.builder().name("Jan").surname("Kowalski").login("jkowalski").email("jkowalski@ksiazko.tk").password("jkowalski").avatar("/avatars/128_16.png").active(Status.ACTIVE).build();
-			User mnowak = User.builder().name("Marek").surname("Nowak").login("mnowak").email("mnowak@ksiazko.tk").password("mnowak").avatar("/avatars/128_2.png").active(Status.ACTIVE).build();
-			User azaradna = User.builder().name("Anna").surname("Zaradna").login("azaradna").email("azaradna@ksiazko.tk").password("azaradna").avatar("/avatars/128_6.png").active(Status.ACTIVE).build();
-			User pwozniak = User.builder().name("Paulina").surname("Wozniak").login("pwozniak").email("pwozniak@ksiazko.tk").password("pwozniak").avatar("/avatars/128_9.png").active(Status.ACTIVE).build();
-			User admin = User.builder().login("admin").email("admin@ksiazko.tk").password("admin").active(Status.INACTIVE).build();
+
+
+			User jkowalski = User.builder().name("Jan").surname("Kowalski").login("jkowalski").email("jkowalski@ksiazko.tk").password(passwordEncoder.encode("jkowalski")).avatar("/avatars/128_16.png").active(Status.ACTIVE).build();
+			User mnowak = User.builder().name("Marek").surname("Nowak").login("mnowak").email("mnowak@ksiazko.tk").password(passwordEncoder.encode("mnowak")).avatar("/avatars/128_2.png").active(Status.ACTIVE).build();
+			User azaradna = User.builder().name("Anna").surname("Zaradna").login("azaradna").email("azaradna@ksiazko.tk").password(passwordEncoder.encode("azaradna")).avatar("/avatars/128_6.png").active(Status.ACTIVE).build();
+			User pwozniak = User.builder().name("Paulina").surname("Wozniak").login("pwozniak").email("pwozniak@ksiazko.tk").password(passwordEncoder.encode("pwozniak")).avatar("/avatars/128_9.png").active(Status.ACTIVE).build();
+			User admin = User.builder().login("admin").email("admin@ksiazko.tk").password(passwordEncoder.encode("admin")).avatar("/avatars/128_15.png").active(Status.ACTIVE).build();
+
+			UserRole userRole = UserRole.builder().user(jkowalski).role("ROLE_USER").build();
+			userRoleRepository.save(userRole);
+			jkowalski.setUserRoles(Arrays.asList(userRole));
+			userRepository.save(jkowalski);
+
+			UserRole userRole2 = UserRole.builder().user(mnowak).role("ROLE_USER").build();
+			userRoleRepository.save(userRole2);
+			mnowak.setUserRoles(Arrays.asList(userRole2));
+			userRepository.save(mnowak);
+
+			UserRole userRole3 = UserRole.builder().user(azaradna).role("ROLE_USER").build();
+			userRoleRepository.save(userRole3);
+			azaradna.setUserRoles(Arrays.asList(userRole3));
+			userRepository.save(azaradna);
+
+			UserRole userRole4 = UserRole.builder().user(pwozniak).role("ROLE_USER").build();
+			userRoleRepository.save(userRole4);
+			pwozniak.setUserRoles(Arrays.asList(userRole4));
+			userRepository.save(pwozniak);
+
+			UserRole userRole5 = UserRole.builder().user(admin).role("ROLE_ADMIN").build();
+			userRoleRepository.save(userRole5);
+			admin.setUserRoles(Arrays.asList(userRole5));
+			userRepository.save(admin);
 
 			Book book1 = Book.builder().title("Karaluchy").author("Jo Nesbo").cover("/covers/j_karaluch.jpg").status(BookStatus.FREE).active(Status.ACTIVE).build();
 			Book book2 = Book.builder().title("Pentagram").author("Jo Nesbo").cover("/covers/j_pentagram.jpg").status(BookStatus.FREE).active(Status.ACTIVE).build();

@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
-<div class="container">
+<div class="container" th:with="loggedUser=${#authentication.getPrincipal().getUsername()}">
     <div class="row">
         <th:block th:each="book : ${books}">
             <div class="col">
@@ -17,6 +17,12 @@
                     </tr>
                     <tr>
                         <td th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}">...</td>
+                    </tr>
+                    <tr th:if="${#strings.toString(book.status).equals('FREE') && #strings.toString(book.active).equals('ACTIVE')}">
+                        <td>aaaa</td>
+                    </tr>
+                    <tr>
+                        <td th:text="${loggedUser}">...</td>
                     </tr>
                     </tbody>
                 </table>

@@ -49,6 +49,7 @@ public class UsersController {
         String username = authentication.getName();
         User user = iUserService.getUserByLogin(username);
         if(password.equals(password2)){
+
         user.setPassword(password);
         iUserService.saveUser(user);
         }

@@ -28,5 +28,8 @@ public class User {
     @OneToMany
     private List<Book> books;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<UserRole> userRoles;
+
 
 }
