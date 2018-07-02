@@ -24,7 +24,6 @@ public class Book {
     private User owner;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "borower")
     private User borower;
 
     @Enumerated(EnumType.STRING)

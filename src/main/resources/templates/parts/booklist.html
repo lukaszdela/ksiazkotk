@@ -15,15 +15,124 @@
                     <tr>
                         <td th:text="${book.getAuthor()}">...</td>
                     </tr>
-                    <tr>
-                        <td th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}">...</td>
-                    </tr>
-                    <tr th:if="${#strings.toString(book.status).equals('FREE') && #strings.toString(book.active).equals('ACTIVE')}">
-                        <td>aaaa</td>
-                    </tr>
-                    <tr>
-                        <td th:text="${loggedUser}">...</td>
-                    </tr>
+                    <div th:if="${#strings.toString(book.active).equals('ACTIVE')}">
+
+
+                        <div th:if="${#strings.toString(book.status).equals('READ')}">
+                            <div th:if="${#strings.toString(book.borower) != null}">
+
+                                <div th:if="${!loggedUser.equals(book.borrower.login)}">
+                                    <tr>
+                                        <td>
+                                            <button th:text="${book.borrower.name + ' ' + book.borrower.surname}" type="button" class="btn btn-danger"></button>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <div th:if="${loggedUser.equals(book.borrower.login)}">
+                                    <tr>
+                                        <td>
+                                            <button th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}" type="button" class="btn btn-danger"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-default">Readed</button>
+                                        </td>
+                                    </tr>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div th:if="${#strings.toString(book.status).equals('LEND')}">
+                            <div th:if="${#strings.toString(book.borower) != null}">
+
+                                <div th:if="${!loggedUser.equals(book.borrower.login)}">
+                                    <tr>
+                                        <td>
+                                            <button th:text="${book.borrower.name + ' ' + book.borrower.surname}" type="button" class="btn btn-primary"></button>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <div th:if="${loggedUser.equals(book.borrower.login)}">
+                                    <tr>
+                                        <td>
+                                            <button th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}" type="button" class="btn btn-primary"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-default">Recived</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </td>
+                                    </tr>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div th:if="${#strings.toString(book.status).equals('FREE')}">
+                            <div th:if="${loggedUser.equals(book.owner.login)}">
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-success">Your book</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-default">Delete</button>
+                                    </td>
+                                </tr>
+                            </div>
+                            <div th:if="${!loggedUser.equals(book.owner.login)}">
+                                <tr>
+                                    <td>
+                                        <button th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}" type="button" class="btn btn-success"></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-default">Borrow</button>
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
+
+                        <div th:if="${#strings.toString(book.status).equals('RETURN')}">
+                            <div th:if="${!loggedUser.equals(book.owner.login)}">
+                                <div th:if="${#strings.toString(book.borower) != null}">
+                                <tr>
+                                    <td>
+                                        <button th:text="${book.borrower.name + ' ' + book.borrower.surname}" type="button" class="btn btn-danger"></button>
+                                    </td>
+                                </tr>
+                                </div>
+                            </div>
+                            <div th:if="${loggedUser.equals(book.owner.login)}">
+                                <div th:if="${#strings.toString(book.borower) != null}">
+                                <tr>
+                                    <td>
+                                        <button th:text="${book.borrower.name + ' ' + book.borrower.surname}" type="button" class="btn btn-danger"></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-default">Recived</button>
+                                    </td>
+                                </tr>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     </tbody>
                 </table>
             </div>
