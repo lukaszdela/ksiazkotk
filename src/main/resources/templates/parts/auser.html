@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+<div class="container" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+    <th:block th:each="user : ${users}">
+        <!--<form th:action="@{/admin/user/update/{userId}(userId=${user.id})}" method="post">-->
+            <table class="table table-hover">
+
+                <tbody>
+                <tr>
+                    <form th:action="@{/admin/user/update/{userId}(userId=${user.id})}" method="post">
+                    <td align="center">
+                        <input type="text" class="form-control" name="name" th:value="${user.name}">
+                    </td>
+                    <td align="center">
+                        <input type="text" class="form-control" name="surname" th:value="${user.surname}">
+                    </td>
+                    <td align="center">
+                        <input type="text" class="form-control" name="login" th:value="${user.login}">
+                    </td>
+                    <td align="center">
+                        <input type="text" class="form-control" name="email" th:value="${user.email}">
+                    </td>
+                    <td align="center">
+                        <input type="hidden" name="password" th:value="${user.password}">
+                    </td>
+
+                        <td align="center">
+                            <select name="enabled">
+                                <th:block th:if="${user.enabled.equals(true)}">
+                                    <option selected th:value="${true}" th:text="${'ENABLED'}"></option>
+                                    <option th:value="${false}" th:text="${'DISABLED'}"></option>
+                                </th:block>
+                                <th:block th:if="${user.enabled.equals(false)}">
+                                    <option th:value="${true}" th:text="${'ENABLED'}"></option>
+                                <option selected th:value="${false}" th:text="${'NOT ENABLED'}"></option>
+                            </th:block>
+                            </select>
+                        </td>
+
+                        <td align="center">
+                        <select name="active">
+                            <div th:each="active : ${actives}">
+                                <th:block th:if="${#strings.toString(user.active).equals(active)}">
+                                    <option selected th:value="${active}" th:text="${active}"></option>
+                                </th:block>
+                                <th:block th:if="${!#strings.toString(user.active).equals(active)}">
+                                    <option th:value="${active}" th:text="${active}"></option>
+                                </th:block>
+                            </div>
+                        </select>
+                    </td>
+                    <td align="center">
+                        <input type="hidden" name="avatar" th:value="${user.avatar}">
+                    </td>
+                    <td align="center">
+                    <button type="submit" class="btn">Update</button>
+                    </td>
+                    </form>
+                    <td align="center">
+                        <a th:href="@{/admin/users/pass/{userId}(userId=${user.id})}">
+                            <button type="submit" class="btn">Change Password</button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        <!--</form>-->
+    </th:block>
+</div>

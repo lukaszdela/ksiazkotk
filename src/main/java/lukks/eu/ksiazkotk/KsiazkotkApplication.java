@@ -29,11 +29,11 @@ public class KsiazkotkApplication {
 		return args -> {
 
 
-			User jkowalski = User.builder().name("Jan").surname("Kowalski").login("jkowalski").email("jkowalski@ksiazko.tk").password(passwordEncoder.encode("jkowalski")).avatar("/avatars/128_16.png").active(Status.ACTIVE).build();
-			User mnowak = User.builder().name("Marek").surname("Nowak").login("mnowak").email("mnowak@ksiazko.tk").password(passwordEncoder.encode("mnowak")).avatar("/avatars/128_2.png").active(Status.ACTIVE).build();
-			User azaradna = User.builder().name("Anna").surname("Zaradna").login("azaradna").email("azaradna@ksiazko.tk").password(passwordEncoder.encode("azaradna")).avatar("/avatars/128_6.png").active(Status.ACTIVE).build();
-			User pwozniak = User.builder().name("Paulina").surname("Wozniak").login("pwozniak").email("pwozniak@ksiazko.tk").password(passwordEncoder.encode("pwozniak")).avatar("/avatars/128_9.png").active(Status.ACTIVE).build();
-			User admin = User.builder().login("admin").email("admin@ksiazko.tk").password(passwordEncoder.encode("admin")).avatar("/avatars/128_15.png").active(Status.ACTIVE).build();
+			User jkowalski = User.builder().name("Jan").surname("Kowalski").login("jkowalski").email("jkowalski@ksiazko.tk").password(passwordEncoder.encode("jkowalski")).avatar("/avatars/128_16.png").active(Status.ACTIVE).enabled(Boolean.TRUE).build();
+			User mnowak = User.builder().name("Marek").surname("Nowak").login("mnowak").email("mnowak@ksiazko.tk").password(passwordEncoder.encode("mnowak")).avatar("/avatars/128_2.png").active(Status.ACTIVE).enabled(Boolean.TRUE).build();
+			User azaradna = User.builder().name("Anna").surname("Zaradna").login("azaradna").email("azaradna@ksiazko.tk").password(passwordEncoder.encode("azaradna")).avatar("/avatars/128_6.png").active(Status.ACTIVE).enabled(Boolean.TRUE).build();
+			User pwozniak = User.builder().name("Paulina").surname("Wozniak").login("pwozniak").email("pwozniak@ksiazko.tk").password(passwordEncoder.encode("pwozniak")).avatar("/avatars/128_9.png").active(Status.ACTIVE).enabled(Boolean.TRUE).build();
+			User admin = User.builder().name("Admin").surname("Serwisu").login("admin").email("admin@ksiazko.tk").password(passwordEncoder.encode("admin")).avatar("/avatars/128_15.png").active(Status.INACTIVE).enabled(Boolean.TRUE).build();
 
 			UserRole userRole = UserRole.builder().user(jkowalski).role("ROLE_USER").build();
 			userRoleRepository.save(userRole);

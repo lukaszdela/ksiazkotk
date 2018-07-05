@@ -3,77 +3,84 @@
 <div class="container" th:with="loggedUser=${#authentication.getPrincipal().getUsername()}">
     <div class="row">
         <th:block th:each="book : ${books}">
-            <div class="col">
+            <div class="col-sm-4 col-md-3 col-lg-2">
                 <table>
                     <tbody>
                     <tr>
-                        <td><img alt="" th:src="${book.getCover()}"></td>
+                        <td align="center"><img alt="" th:src="${book.getCover()}"></td>
                     </tr>
                     <tr>
-                        <td th:text="${book.getTitle()}">...</td>
+                        <td align="center" th:text="${book.getTitle()}">...</td>
                     </tr>
                     <tr>
-                        <td th:text="${book.getAuthor()}">...</td>
+                        <td align="center" th:text="${book.getAuthor()}">...</td>
                     </tr>
                     <div th:if="${#strings.toString(book.active).equals('ACTIVE')}">
 
 
                         <div th:if="${#strings.toString(book.status).equals('READ')}">
-                            <div th:if="${#strings.toString(book.borower) != null}">
+                            <!--<div th:if="${#strings.toString(book.borower) != null}">-->
 
-                                <div th:if="${!loggedUser.equals(book.borrower.login)}">
+                                <div th:if="${#strings.toString(book.borower.login) != loggedUser}">
                                     <tr>
-                                        <td>
-                                            <button th:text="${book.borrower.name + ' ' + book.borrower.surname}" type="button" class="btn btn-danger"></button>
+                                        <td align="center">
+                                            <button th:text="${book.borower.name + ' ' + book.borower.surname}" type="button" class="btn btn-danger"></button>
                                         </td>
                                     </tr>
                                 </div>
-                                <div th:if="${loggedUser.equals(book.borrower.login)}">
+                                <div th:if="${#strings.toString(book.borower.login).equals(loggedUser)}">
                                     <tr>
-                                        <td>
-                                            <button th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}" type="button" class="btn btn-danger"></button>
+                                        <td align="center">
+                                            <button th:text="${#strings.toString(book.borower.name) + ' ' + #strings.toString(book.borower.surname)}" type="button" class="btn btn-danger"></button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
+                                    <tr sec:authorize="hasAnyRole('ROLE_USER')">
+                                        <td align="center">
+                                            <a class="dropdown-item" th:href="@{/books/readed/{bookId}(bookId=${book.id})}">
                                             <button type="button" class="btn btn-default">Readed</button>
+                                            </a>
                                         </td>
                                     </tr>
                                 </div>
 
-                            </div>
+                            <!--</div>-->
                         </div>
 
 
                         <div th:if="${#strings.toString(book.status).equals('LEND')}">
-                            <div th:if="${#strings.toString(book.borower) != null}">
+                            <!--<div th:if="${!#strings.toString(book.borower).equals(null)}">-->
 
-                                <div th:if="${!loggedUser.equals(book.borrower.login)}">
+                                <div th:if="${#strings.toString(book.borower.login) != loggedUser}">
+                                    <!--<div th:if="${!loggedUser.equals(book.borrower.login)}">-->
                                     <tr>
-                                        <td>
-                                            <button th:text="${book.borrower.name + ' ' + book.borrower.surname}" type="button" class="btn btn-primary"></button>
+                                        <td align="center">
+                                            <button th:text="${book.owner.name + ' ' + book.owner.surname}" type="button" class="btn btn-primary"></button>
                                         </td>
                                     </tr>
                                 </div>
-                                <div th:if="${loggedUser.equals(book.borrower.login)}">
+                                <div th:if="${#strings.toString(book.borower.login).equals(loggedUser)}">
                                     <tr>
-                                        <td>
+                                        <td align="center">
                                             <button th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}" type="button" class="btn btn-primary"></button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
+                                    <tr sec:authorize="hasAnyRole('ROLE_USER')">
+                                        <td align="center">
+                                            <a class="dropdown-item" th:href="@{/books/read/{bookId}(bookId=${book.id})}">
                                             <button type="button" class="btn btn-default">Recived</button>
+                                            </a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
+                                    <tr sec:authorize="hasAnyRole('ROLE_USER')">
+                                        <td align="center">
+                                            <a class="dropdown-item" th:href="@{/books/cancel/{bookId}(bookId=${book.id})}">
                                             <button type="button" class="btn btn-default">Cancel</button>
+                                            </a>
                                         </td>
                                     </tr>
                                 </div>
 
-                            </div>
+                            <!--</div>-->
                         </div>
 
 
@@ -82,25 +89,29 @@
                         <div th:if="${#strings.toString(book.status).equals('FREE')}">
                             <div th:if="${loggedUser.equals(book.owner.login)}">
                                 <tr>
-                                    <td>
+                                    <td align="center">
                                         <button type="button" class="btn btn-success">Your book</button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
+                                <tr sec:authorize="hasAnyRole('ROLE_USER')">
+                                    <td align="center">
+                                        <a class="dropdown-item" th:href="@{/books/delete/{bookId}(bookId=${book.id})}">
                                         <button type="button" class="btn btn-default">Delete</button>
+                                        </a>
                                     </td>
                                 </tr>
                             </div>
                             <div th:if="${!loggedUser.equals(book.owner.login)}">
                                 <tr>
-                                    <td>
+                                    <td align="center">
                                         <button th:text="${book.getOwner().getName() + ' ' + book.getOwner().getSurname()}" type="button" class="btn btn-success"></button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
+                                <tr sec:authorize="hasAnyRole('ROLE_USER')">
+                                    <td align="center">
+                                        <a class="dropdown-item" th:href="@{/books/borrow/{bookId}(bookId=${book.id})}">
                                         <button type="button" class="btn btn-default">Borrow</button>
+                                        </a>
                                     </td>
                                 </tr>
                             </div>
@@ -108,27 +119,29 @@
 
                         <div th:if="${#strings.toString(book.status).equals('RETURN')}">
                             <div th:if="${!loggedUser.equals(book.owner.login)}">
-                                <div th:if="${#strings.toString(book.borower) != null}">
+                                <!--<div th:if="${#strings.toString(book.borower) != null}">-->
                                 <tr>
-                                    <td>
-                                        <button th:text="${book.borrower.name + ' ' + book.borrower.surname}" type="button" class="btn btn-danger"></button>
+                                    <td align="center">
+                                        <button th:text="${#strings.toString(book.borower.name) + ' ' + #strings.toString(book.borower.surname)}" type="button" class="btn btn-warning"></button>
                                     </td>
                                 </tr>
-                                </div>
+                                <!--</div>-->
                             </div>
                             <div th:if="${loggedUser.equals(book.owner.login)}">
-                                <div th:if="${#strings.toString(book.borower) != null}">
+                                <!--<div th:if="${#strings.toString(book.borower) != null}">-->
                                 <tr>
-                                    <td>
-                                        <button th:text="${book.borrower.name + ' ' + book.borrower.surname}" type="button" class="btn btn-danger"></button>
+                                    <td align="center">
+                                        <button th:text="${#strings.toString(book.borower.name) + ' ' + #strings.toString(book.borower.surname)}" type="button" class="btn btn-warning"></button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
+                                <tr sec:authorize="hasAnyRole('ROLE_USER')">
+                                    <td align="center">
+                                        <a class="dropdown-item" th:href="@{/books/recive/{bookId}(bookId=${book.id})}">
                                         <button type="button" class="btn btn-default">Recived</button>
+                                        </a>
                                     </td>
                                 </tr>
-                                </div>
+                                <!--</div>-->
                             </div>
                         </div>
 

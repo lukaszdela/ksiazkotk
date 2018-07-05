@@ -1,6 +1,7 @@
 package lukks.eu.ksiazkotk.service;
 
 import lukks.eu.ksiazkotk.model.Book;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface IBookService {
 
     List<Book> getAllBook();
 
+    List<Book> getUserFreeBooks(String login);
+
     List<Book> getUserBooks(String login);
 
     List<Book> getUserActiveBooks(String login);
@@ -24,4 +27,12 @@ public interface IBookService {
     List<Book> searchBooks(String search);
 
     List<Book> getAllBooks();
+
+    List<Book> getDefaultCoverBooks();
+
+    void saveBookCover(Long bookId, MultipartFile file);
+
+    List<String> findAllStatus();
+
+    List<String> findAllActives();
 }

@@ -1,6 +1,5 @@
 package lukks.eu.ksiazkotk.service;
 
-import lukks.eu.ksiazkotk.model.Book;
 import lukks.eu.ksiazkotk.model.User;
 import lukks.eu.ksiazkotk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,10 @@ public class UserService implements IUserService{
         userRepository.deleteById(id);
     }
 
+
     @Override
-    public void readUser(Long id){
-        userRepository.findById(id);
+    public User readUser(Long id){
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -39,8 +39,15 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public List<User> getAllUser(){
+        return userRepository.getAllUser();
+    }
+
+    @Override
     public User getUserByLogin(String login){
         return userRepository.getUserByLogin(login);
     }
+
+
 
 }

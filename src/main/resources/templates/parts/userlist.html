@@ -7,22 +7,19 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td><img alt="" th:src="${user.getAvatar()}"></td>
+                        <td align="center"><img alt="" th:src="${user.getAvatar()}"></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td th:text="${user.getName() + ' ' + user.getSurname()}">...</td>
+                        <td align="center" th:text="${user.getName() + ' ' + user.getSurname()}">...</td>
                     </tr>
                     <tr>
-                        <td th:text="${user.getEmail()}">...</td>
+                        <td align="center" th:text="${user.getEmail()}">...</td>
                     </tr>
                     <tr>
-                        <td th:text="${user.getPassword()}">...</td>
-                    </tr>
-                    <tr>
-                        <td>
+                        <td align="center">
                             <a class="dropdown-item" th:href="@{/books/user/{login}(login=${user.login})}">
                                 <button th:text="check + ' ' + ${user.name} + ' ' + books" type="button" class="btn btn-success btn-transparent"></button>
                     </a>

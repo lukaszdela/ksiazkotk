@@ -5,7 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 
 @Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,10 +21,11 @@ public class Book {
     private Status active;
 
     @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "books")
+    @JoinColumn(name = "owner_id")
     private User owner;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "borrower_id")
     private User borower;
 
     @Enumerated(EnumType.STRING)

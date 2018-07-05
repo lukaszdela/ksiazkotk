@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2"/>
     <title>Ksiazkoteka - book swap with friends</title>
     <script type="text/javascript" th:src="@{/css/popper.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
@@ -15,21 +15,25 @@
     <div class="w-100 p-3">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" th:href="@{/}"><img alt="" th:src="@{/images/logo.jpg}"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-auto" style="margin-top: 19px !important;">
                     <li class="nav-item">
                         <form class="nav-link">
-                            <div class="container">
-                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownBookMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Book List</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownBookMenuButton">
-                                <a class="dropdown-item" th:href="@{/books/all}">All books</a>
-                                <a class="dropdown-item" th:href="@{/books/free}">All free books</a>
-                                <a class="dropdown-item" th:href="@{/books/borrowed}">All borrowed books</a>
-                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button"
+                                        id="dropdownBookMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">Book List
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownBookMenuButton">
+                                    <a class="dropdown-item" th:href="@{/books/all}">All books</a>
+                                    <a class="dropdown-item" th:href="@{/books/free}">All free books</a>
+                                    <a class="dropdown-item" th:href="@{/books/borrowed}">All borrowed books</a>
+                                </div>
                             </div>
                         </form>
                     </li>
@@ -39,15 +43,39 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <form class="nav-link">
-                            <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownUserMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User menu</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownUserMenuButton">
-                                <a class="dropdown-item" th:href="@{/books/active}">Active books</a>
-                                <a class="dropdown-item" th:href="@{/books/user}">My books</a>
-                                <a class="dropdown-item" th:href="@{/book/addbook}">Add book</a>
-                                <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
-                            </div>
-                        </form>
+                        <div sec:authorize="hasAnyRole('ROLE_USER')">
+                            <form class="nav-link">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-warning dropdown-toggle" type="button"
+                                            id="dropdownUserMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">User menu
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownUserMenuButton">
+                                        <a class="dropdown-item" th:href="@{/books/active}">Active books</a>
+                                        <a class="dropdown-item" th:href="@{/books/user}">My books</a>
+                                        <a class="dropdown-item" th:href="@{/book/addbook}">Add book</a>
+                                        <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                            <form class="nav-link">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-warning dropdown-toggle" type="button"
+                                            id="dropdownAdminMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">Admin
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownAdminMenuButton">
+                                        <a class="dropdown-item" th:href="@{/admin/books/defaultcover}">Default cover
+                                            books</a>
+                                        <a class="dropdown-item" th:href="@{/admin/books}">Books</a>
+                                        <a class="dropdown-item" th:href="@{/admin/users/all}">Users</a>
+                                        <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <form class="nav-link" th:action="@{/logout}" method="post">
@@ -56,7 +84,8 @@
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0" th:action="@{/books}" method="get">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                           name="search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>

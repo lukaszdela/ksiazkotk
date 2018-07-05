@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 @Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -24,9 +25,13 @@ public class User {
     private String password;
     private String avatar;
     private Status active;
+    private Boolean enabled;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private List<Book> books;
+
+    @OneToMany(mappedBy = "borower")
+    private List<Book> borrowerBooks;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<UserRole> userRoles;

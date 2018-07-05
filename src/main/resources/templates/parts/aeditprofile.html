@@ -2,8 +2,8 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-md-12 col-lg-2 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-2 mt-4">
             <table>
                 <tbody>
                 <tr>
@@ -15,35 +15,12 @@
                 <tr>
                     <td th:text="${user.getName() + ' ' + user.getSurname()}">...</td>
                 </tr>
-                <tr>
-                    <td th:text="${user.getEmail()}">...</td>
-                </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-md-12 col-lg-6">
-            <form class="form-horizontal" id="emailForm" th:action="@{/user/email}" method="post">
-                <fieldset>
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <div class="col-lg-6">
-                            <label class="control-label">Change Email</label>
-                            <input id="email" name="email" class="form-control input-md" required type="email">
-                        </div>
-                    </div>
-
-                    <!-- Button -->
-                    <div class="form-group">
-                        <div class="col-lg-6">
-                            <label class="control-label"></label>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-
-                </fieldset>
-            </form>
-
-            <form class="form-horizontal" id="passwordForm" th:action="@{/user/password}" method="post">
+            <form class="form-horizontal" id="passwordForm"
+                  th:action="@{/admin/users/pass/change/{userId}(userId=${user.id})}" method="post">
                 <fieldset>
                     <!-- Text input-->
                     <div class="form-group">
@@ -51,7 +28,6 @@
                             <label class="control-label">New password</label>
                             <input name="password" id="password" placeholder="" class="form-control input-md" required
                                    type="password">
-
                         </div>
                     </div>
 
@@ -60,15 +36,13 @@
                             <label class="control-label">Retype new password</label>
                             <input name="password2" id="password2" placeholder="" class="form-control input-md" required
                                    type="password">
-
                         </div>
                     </div>
 
-
                     <!-- Button -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label"></label>
                         <div class="col-md-4">
+                            <label class="control-label"></label>
                             <button id="passButton" type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>

@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Controller
@@ -38,7 +38,7 @@ public class BooksController {
 
     @GetMapping("/books/all")
     public String getAllBooks(Model model){
-        List<Book> books = iBookService.getAllBook();
+        List<Book> books = iBookService.getAllBooks();
         model.addAttribute("books", books);
         return "book";
     }
@@ -101,6 +101,81 @@ public class BooksController {
         book.setOwner(owner);
         iBookService.saveBook(book);
         return "redirect:/books/user";
+    }
+
+    @RequestMapping(path = "/books/borrow/{bookId}", method = RequestMethod.GET)
+    public String borrowBook(@PathVariable("bookId")Long bookId, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = iUserService.getUserByLogin(username);
+        Book book = iBookService.readBook(bookId);
+        book.setStatus(BookStatus.LEND);
+        book.setBorower(user);
+        iBookService.saveBook(book);
+        List<Book> books = iBookService.getUserActiveBooks(username);
+        model.addAttribute("books", books);
+        return "book";
+    }
+
+    @RequestMapping(path = "/books/cancel/{bookId}", method = RequestMethod.GET)
+    public String cancelBorrow(@PathVariable("bookId")Long bookId, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Book book = iBookService.readBook(bookId);
+        book.setStatus(BookStatus.FREE);
+        book.setBorower(null);
+        iBookService.saveBook(book);
+        List<Book> books = iBookService.getUserActiveBooks(username);
+        model.addAttribute("books", books);
+        return "book";
+    }
+
+    @RequestMapping(path = "/books/read/{bookId}", method = RequestMethod.GET)
+    public String reciveBook(@PathVariable("bookId")Long bookId, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Book book = iBookService.readBook(bookId);
+        book.setStatus(BookStatus.READ);
+        iBookService.saveBook(book);
+        List<Book> books = iBookService.getUserActiveBooks(username);
+        model.addAttribute("books", books);
+        return "book";
+    }
+
+    @RequestMapping(path = "/books/readed/{bookId}", method = RequestMethod.GET)
+    public String returnBook(@PathVariable("bookId")Long bookId, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Book book = iBookService.readBook(bookId);
+        book.setStatus(BookStatus.RETURN);
+        iBookService.saveBook(book);
+        List<Book> books = iBookService.getUserActiveBooks(username);
+        model.addAttribute("books", books);
+        return "book";
+    }
+
+    @RequestMapping(path = "/books/recive/{bookId}", method = RequestMethod.GET)
+    public String getBackBook(@PathVariable("bookId")Long bookId, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Book book = iBookService.readBook(bookId);
+        book.setStatus(BookStatus.FREE);
+        iBookService.saveBook(book);
+        List<Book> books = iBookService.getAllBooks();
+        model.addAttribute("books", books);
+        return "book";
+    }
+
+    @RequestMapping(path = "/books/delete/{bookId}", method = RequestMethod.GET)
+    public String deleteBook(@PathVariable("bookId")Long bookId, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Book book = iBookService.readBook(bookId);
+        book.setActive(Status.INACTIVE);
+        iBookService.saveBook(book);
+        List<Book> books = iBookService.getUserBooks(username);
+        model.addAttribute("books", books);
+        return "book";
     }
 
 

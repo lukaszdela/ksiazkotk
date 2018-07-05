@@ -9,9 +9,13 @@ public interface IUserService {
 
     void deleteUser(Long id);
 
-    void readUser(Long id);
+    User readUser(Long id);
 
     List<User> getAllUsers();
 
+    List<User> getAllUser();
+
     User getUserByLogin(String login);
+
+//    Optional<User> getUserById(Long id);
 }

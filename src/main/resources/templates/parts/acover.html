@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+<div class="container" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+    <th:block th:each="book : ${books}">
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td>
+                        <!--<a class="dropdown-item" th:href="@{/books/borrow/{bookId}(bookId=${book.id})}">-->
+                        <!--<button type="button" class="btn btn-default">Borrow</button>-->
+                        <!--</a>-->
+                        <form th:action="@{/admin/books/cover/add/{bookId} (bookId=${book.id})}" method="post" enctype="multipart/form-data">
+                            Select image to upload:
+                            <input type="file" name="file" id="fileToUpload">
+                            <input type="submit" value="Upload Image" name="submit">
+                        </form>
+                    </td>
+
+
+
+                </tr>
+                </tbody>
+            </table>
+    </th:block>
+</div>

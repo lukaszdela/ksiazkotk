@@ -1,15 +1,15 @@
 package lukks.eu.ksiazkotk.controller;
 
+import lukks.eu.ksiazkotk.model.Status;
 import lukks.eu.ksiazkotk.model.User;
 import lukks.eu.ksiazkotk.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,10 +17,11 @@ import java.util.List;
 public class UsersController {
 
     private IUserService iUserService;
+    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UsersController(IUserService iUserService) {
+    public UsersController(IUserService iUserService, PasswordEncoder passwordEncoder) {
         this.iUserService = iUserService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/user")
@@ -49,8 +50,7 @@ public class UsersController {
         String username = authentication.getName();
         User user = iUserService.getUserByLogin(username);
         if(password.equals(password2)){
-
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         iUserService.saveUser(user);
         }
         model.addAttribute("user", user);
@@ -65,4 +65,6 @@ public class UsersController {
         model.addAttribute("user", user);
         return "profile";
     }
+
+
 }

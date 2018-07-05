@@ -1,16 +1,14 @@
 package lukks.eu.ksiazkotk.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 public class UserRole {
 
@@ -21,6 +19,6 @@ public class UserRole {
     @Column(nullable = false)
     private String role;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userRoles")
+    @JoinColumn(name = "user_id")
     private User user;
 }
