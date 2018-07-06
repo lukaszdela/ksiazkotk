@@ -52,7 +52,12 @@ public class RegisterController {
             userRoleList.add(userRole);
             user.setUserRoles(userRoleList);
             iUserService.saveUser(user);
-            String msg = String.format("Your new login is '%s'",user.getLogin());
+            String msg = String.format("Congratulations You are registered user of Ksiazkoteka, best" +
+                    " book swap with friends service ever!!! Wait for Admin to activate Your account." +
+                    " Your login is %s",user.getLogin());
+            model.addAttribute("msg", msg);
+        }else {
+            String msg = String.format("Fill registration form correctly and enjoy power of Ksiazkoteka!");
             model.addAttribute("msg", msg);
         }
         return "login";

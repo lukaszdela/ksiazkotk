@@ -14,19 +14,17 @@
 <div class="login">
 	<div class="login-screen" th:if="${param.error}">
 		<br>
-		<p style="color: #2C7D92" align="center"><b>Invalid username and password.</b></p>
+		<p align="center"><b>Invalid username and password.</b></p>
 	</div>
 	<div class="login-screen" th:if="${param.logout}">
 		<br>
-		<p style="color: #2C7D92" align="center"><b>You have been logged out.</b></p>
+		<p align="center"><b>You have been logged out.</b></p>
 	</div>
-	<div  th:text="${msg}">
-
-	</div>
-	<!--<div class="login-screen" th:if="${msg != null}">-->
-		<!--<br>-->
-		<!--<p style="color: #2C7D92" align="center"><b>Your mail has been changed.</b></p>-->
-	<!--</div>-->
+	<th:block th:if="${msg}">
+		<div class="login-screen">
+			<b><p align="center" th:text="${msg}"></p></b>
+		</div>
+	</th:block>
 </div>
 
 <div class="login">

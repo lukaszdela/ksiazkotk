@@ -42,7 +42,7 @@ public class UsersController {
         user.setLogin(email);
         iUserService.saveUser(user);
         new SecurityContextLogoutHandler().logout(request, null, authentication);
-        String msg = String.format("Your new login is '%s'",email);
+        String msg = String.format("Your new mail and login is %s",email);
         model.addAttribute("msg", msg);
         return "login";
     }
@@ -57,6 +57,11 @@ public class UsersController {
         if(password.equals(password2)){
         user.setPassword(passwordEncoder.encode(password));
         iUserService.saveUser(user);
+            String msg = String.format("Your password has been changed.");
+            model.addAttribute("msg", msg);
+        }else{
+            String msg = String.format("Entered passwords do not match. Please try again.");
+            model.addAttribute("msg", msg);
         }
         model.addAttribute("user", user);
         return "profile";
