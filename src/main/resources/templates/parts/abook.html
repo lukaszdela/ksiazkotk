@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"	>
+<div class="container" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+    <th:block th:each="book : ${books}">
+        <form th:action="@{/admin/books/update/{bookId} (bookId=${book.id})}" method="post">
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" name="title" th:value="${book.title}">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="author" th:value="${book.author}">
+                </td>
+
+
+                <td>
+                <select name="ownerId">
+                <div th:each="user : ${users}">
+                    <th:block th:if="${book.owner.id.equals(user.id)}">
+                        <option selected th:value="${user.id}" th:text="${user.name + ' ' + user.surname}"></option>
+                    </th:block>
+                    <th:block th:if="${!book.owner.id.equals(user.id)}">
+                        <option th:value="${user.id}" th:text="${user.name + ' ' + user.surname}"></option>
+                    </th:block>
+                </div>
+                </select>
+                </td>
+
+
+                <th:block th:if="${book.borower != null}">
+                    <div>
+                <td>
+                    <select name="borowerId">
+                        <div th:each="user : ${users}">
+                            <th:block th:if="${book.borower.id.equals(user.id)}">
+                                <option selected th:value="${user.id}" th:text="${user.name + ' ' + user.surname}"></option>
+                            </th:block>
+                            <th:block th:if="${!book.borower.id.equals(user.id)}">
+                                <option th:value="${user.id}" th:text="${user.name + ' ' + user.surname}"></option>
+                            </th:block>
+                        </div>
+                        <option th:value="${0L}" th:text="${'no borrower'}"></option>
+                    </select>
+                </td>
+                    </div>
+                </th:block>
+                <th:block>
+                    <div th:if="${#strings.toString(book.borower) == null}">
+                    <td>
+                        <select name="borowerId">
+                            <div th:each="user : ${users}">
+                                    <option th:value="${user.id}" th:text="${user.name + ' ' + user.surname}"></option>
+                            </div>
+                            <option selected th:value="${0L}" th:text="${'no borrower'}"></option>
+                        </select>
+                    </td>
+                    </div>
+                </th:block>
+
+                <td>
+                    <select name="status">
+                    <div th:each="status : ${statuses}">
+                        <th:block th:if="${#strings.toString(book.status).equals(status)}">
+                            <option selected th:value="${status}" th:text="${status}"></option>
+                        </th:block>
+                        <th:block th:if="${!#strings.toString(book.status).equals(status)}">
+                            <option th:value="${status}" th:text="${status}"></option>
+                        </th:block>
+                    </div>
+                    </select>
+                </td>
+                <td>
+                    <select name="active">
+                        <div th:each="active : ${actives}">
+                            <th:block th:if="${#strings.toString(book.active).equals(active)}">
+                                <option selected th:value="${active}" th:text="${active}"></option>
+                            </th:block>
+                            <th:block th:if="${!#strings.toString(book.active).equals(active)}">
+                                <option th:value="${active}" th:text="${active}"></option>
+                            </th:block>
+                        </div>
+                    </select>
+                </td>
+                <td>
+                    <input type="hidden" name="cover" th:value="${book.cover}">
+                </td>
+                <td>
+                    <button type="submit" class="btn">Update</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        </form>
+    </th:block>
+</div>

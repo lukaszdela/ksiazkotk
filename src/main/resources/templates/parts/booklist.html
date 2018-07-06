@@ -19,7 +19,6 @@
 
 
                         <div th:if="${#strings.toString(book.status).equals('READ')}">
-                            <!--<div th:if="${#strings.toString(book.borower) != null}">-->
 
                                 <div th:if="${#strings.toString(book.borower.login) != loggedUser}">
                                     <tr>
@@ -43,15 +42,14 @@
                                     </tr>
                                 </div>
 
-                            <!--</div>-->
                         </div>
 
 
                         <div th:if="${#strings.toString(book.status).equals('LEND')}">
-                            <!--<div th:if="${!#strings.toString(book.borower).equals(null)}">-->
+
 
                                 <div th:if="${#strings.toString(book.borower.login) != loggedUser}">
-                                    <!--<div th:if="${!loggedUser.equals(book.borrower.login)}">-->
+
                                     <tr>
                                         <td align="center">
                                             <button th:text="${book.owner.name + ' ' + book.owner.surname}" type="button" class="btn btn-primary"></button>
@@ -80,7 +78,6 @@
                                     </tr>
                                 </div>
 
-                            <!--</div>-->
                         </div>
 
 
@@ -119,16 +116,14 @@
 
                         <div th:if="${#strings.toString(book.status).equals('RETURN')}">
                             <div th:if="${!loggedUser.equals(book.owner.login)}">
-                                <!--<div th:if="${#strings.toString(book.borower) != null}">-->
                                 <tr>
                                     <td align="center">
                                         <button th:text="${#strings.toString(book.borower.name) + ' ' + #strings.toString(book.borower.surname)}" type="button" class="btn btn-warning"></button>
                                     </td>
                                 </tr>
-                                <!--</div>-->
+
                             </div>
                             <div th:if="${loggedUser.equals(book.owner.login)}">
-                                <!--<div th:if="${#strings.toString(book.borower) != null}">-->
                                 <tr>
                                     <td align="center">
                                         <button th:text="${#strings.toString(book.borower.name) + ' ' + #strings.toString(book.borower.surname)}" type="button" class="btn btn-warning"></button>
@@ -141,7 +136,6 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <!--</div>-->
                             </div>
                         </div>
 

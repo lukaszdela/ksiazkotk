@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -59,7 +60,6 @@ public class AdminController {
         userById.setEnabled(user.getEnabled());
         userById.setActive(user.getActive());
         userById.setAvatar(user.getAvatar());
-        userById.setEmail(user.getEmail());
         userById.setLogin(user.getLogin());
         userById.setName(user.getName());
         userById.setSurname(user.getSurname());
@@ -88,20 +88,28 @@ public class AdminController {
         bookById.setCover(book.getCover());
         bookById.setStatus(book.getStatus());
         bookById.setTitle(book.getTitle());
+        iBookService.saveBook(bookById);
 
-        if(!ownerId.equals(0L)){
-            if(!ownerId.equals(bookById.getOwner().getId())){
-                User ownerById = iUserService.readUser(ownerId);
-                bookById.setOwner(ownerById);
-                iBookService.saveBook(bookById);
-            }
-//            List<Book> books = ownerById.getBooks();
-//            books.add(bookById);
-//            ownerById.setBooks(books);
+        if(!ownerId.equals(bookById.getOwner().getId())){
+            User userOld = iUserService.readUser(bookById.getOwner().getId());
+            User userNew = iUserService.readUser(ownerId);
+            List<Book> booksOldUser = userOld.getBooks();
+            List<Book> booksNewUser = userNew.getBooks();
+            booksOldUser.remove(bookById);
+            booksNewUser.add(bookById);
+            userOld.setBooks(booksOldUser);
+            userNew.setBooks(booksNewUser);
+            bookById.setOwner(userNew);
+            iUserService.saveUser(userOld);
+            iUserService.saveUser(userNew);
+        }
 
-        }else {bookById.setOwner(null);}
+        if(!borowerId.equals(0L)) {
             User borowerById = iUserService.readUser(borowerId);
             bookById.setBorower(borowerById);
+        }else {
+            bookById.setBorower(null);
+        }
 
         iBookService.saveBook(bookById);
         return "redirect:/admin/books";

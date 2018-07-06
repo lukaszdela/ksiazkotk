@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Ksiazkoteka - book swap with friends</title>
+    <script th:src="@{/webjars/bootstrap/4.1.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="offset-lg-1 offset-lg-5" th:if="${param.error}">
+        <p style="color: #FFFFFF">Invalid password.</p>
+    </div>
+    <div class="offset-lg-1 offset-lg-5" th:if="${param.logout}">
+        <p style="color: #FFFFFF">You have been logged out.</p>
+    </div>
+</div>
+
+<div class="register">
+    <div class="login-screen">
+        <div class="app-title">
+            <img alt="" th:src="@{/images/llogo.jpg}">
+            <br>
+            <br>
+            <h4>New user register</h4>
+        </div>
+        <form method="POST" th:action="@{/register/new}">
+
+            <div class="register-form">
+                <div class="control-group">
+                    <br/>
+                    <input ID="main" type="text" required placeholder="name" name="name">
+                    <input ID="main" type="text" required placeholder="surname" name="surname">
+                </div>
+
+                <div class="control-group">
+                    <input ID="email" type="email" required placeholder="email" name="login">
+                </div>
+
+                <div class="control-group">
+                    <input ID="main" type="password" value="" required placeholder="password" name="pass">
+                    <input ID="main" type="password" value="" required placeholder="re-type password" name="pass2">
+                </div>
+
+                <br>
+                <h5>Choose avatar</h5>
+                <br>
+
+                <label>
+                    <img src="/avatars/128_1.png">
+                    <br>
+                    <br>
+                    <input checked type="radio" name="avatar" value="/avatars/128_1.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_2.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_2.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_3.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_3.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_4.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_4.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_5.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_5.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_6.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_6.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_7.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_7.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_8.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_8.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_9.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_9.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_10.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_10.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_11.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_11.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_12.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_12.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_13.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_13.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_14.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_14.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_15.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_15.png">
+                </label>
+                <label>
+                    <img src="/avatars/128_16.png">
+                    <br>
+                    <br>
+                    <input type="radio" name="avatar" value="/avatars/128_16.png">
+                </label>
+                <br>
+                <br>
+
+                <br>
+                <input ID="main" class="btn btn-primary btn-large btn-block" type="submit" value="Register">
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

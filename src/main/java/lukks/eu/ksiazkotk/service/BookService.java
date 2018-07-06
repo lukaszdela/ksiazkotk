@@ -62,7 +62,7 @@ public class BookService implements IBookService{
 
     @Override
     public List<Book> getUserBooks(String login){
-        return bookRepository.getUserBooks(login);
+        return bookRepository.getUserBooks('%' + login + '%');
     }
 
     @Override

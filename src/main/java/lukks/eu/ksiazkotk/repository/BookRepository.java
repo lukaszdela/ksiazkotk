@@ -20,7 +20,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("select e from Book e where e.status <> 'FREE' and e.active = 'ACTIVE'")
     List<Book> getAllBorrowedBooks();
 
-    @Query("select e from Book e inner join e.owner ow where ow.login = :login and e.active = 'ACTIVE'")
+    @Query("select e from Book e inner join e.owner ow where ow.login like :login and e.active = 'ACTIVE'")
     List<Book> getUserBooks(@Param("login") String login);
 
     @Query("select e from Book e inner join e.owner own inner join e.borower bor where (bor.login = :login and e.active = 'ACTIVE') or (own.login = :login and e.active = 'ACTIVE') and e.status = 'RETURN'")

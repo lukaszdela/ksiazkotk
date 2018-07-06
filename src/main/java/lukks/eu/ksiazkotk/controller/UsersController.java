@@ -1,5 +1,6 @@
 package lukks.eu.ksiazkotk.controller;
 
+import lukks.eu.ksiazkotk.model.BookStatus;
 import lukks.eu.ksiazkotk.model.Status;
 import lukks.eu.ksiazkotk.model.User;
 import lukks.eu.ksiazkotk.service.IUserService;
@@ -36,7 +37,7 @@ public class UsersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = iUserService.getUserByLogin(username);
-        user.setEmail(email);
+        user.setLogin(email);
         iUserService.saveUser(user);
         model.addAttribute("user", user);
         return "profile";
