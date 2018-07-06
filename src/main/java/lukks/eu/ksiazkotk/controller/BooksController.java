@@ -36,6 +36,11 @@ public class BooksController {
         return "book";
     }
 
+    @GetMapping("/book/addbook")
+    public String addBookForm(){
+        return "addbook";
+    }
+
     @GetMapping("/books/all")
     public String getAllBooks(Model model){
         List<Book> books = iBookService.getAllBooks();

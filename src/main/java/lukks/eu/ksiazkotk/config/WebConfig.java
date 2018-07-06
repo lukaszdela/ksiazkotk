@@ -11,6 +11,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        String myExternalFilePath = "file:///C:/coversnew";
+
+        registry.addResourceHandler("/coversnew/**")
+                .addResourceLocations("file:coversnew/");
+
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("/webjars/");
 

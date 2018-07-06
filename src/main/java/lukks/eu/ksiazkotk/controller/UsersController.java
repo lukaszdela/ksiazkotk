@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -33,14 +35,16 @@ public class UsersController {
     }
 
     @PostMapping("/user/email")
-    public String changeUserEmail(@RequestParam("email") String email, Model model){
+    public String changeUserEmail(@RequestParam("email") String email, Model model, HttpServletRequest request){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = iUserService.getUserByLogin(username);
         user.setLogin(email);
         iUserService.saveUser(user);
-        model.addAttribute("user", user);
-        return "profile";
+        new SecurityContextLogoutHandler().logout(request, null, authentication);
+        String msg = String.format("Your new login is '%s'",email);
+        model.addAttribute("msg", msg);
+        return "login";
     }
 
     @PostMapping("/user/password")

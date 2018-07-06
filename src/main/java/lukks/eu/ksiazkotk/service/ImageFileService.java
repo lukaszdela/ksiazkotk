@@ -10,9 +10,11 @@ import java.io.IOException;
 @Component
 public class ImageFileService {
 
+    private static final String PARENT_DIRECTORY = "coversnew";
+
     public String save(MultipartFile multipartFile){
 
-        File file = new File("C:\\java_workplace\\proj_koncowy\\ksiazkotk\\src\\main\\resources\\static\\covers", multipartFile.getOriginalFilename());
+        File file = new File(PARENT_DIRECTORY, multipartFile.getOriginalFilename());
 
         try {
             FileUtils.writeByteArrayToFile(file, multipartFile.getBytes());
