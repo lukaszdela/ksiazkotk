@@ -42,24 +42,31 @@ public class RegisterController {
                              @RequestParam("pass") String pass,
                              @RequestParam("pass2") String pass2,
                              Model model){
-        user.setActive(Status.NEW);
-        user.setEnabled(Boolean.FALSE);
-        if(pass.equals(pass2)){
-            user.setPassword(passwordEncoder.encode(pass));
-            UserRole userRole = UserRole.builder().user(user).role("ROLE_USER").build();
-            iUserRoleService.saveUser(userRole);
-            List<UserRole> userRoleList = new ArrayList<>();
-            userRoleList.add(userRole);
-            user.setUserRoles(userRoleList);
-            iUserService.saveUser(user);
-            String msg = String.format("Congratulations You are registered user of Ksiazkoteka, best" +
-                    " book swap with friends service ever!!! Wait for Admin to activate Your account." +
-                    " Your login is %s",user.getLogin());
-            model.addAttribute("msg", msg);
-        }else {
-            String msg = String.format("Fill registration form correctly and enjoy power of Ksiazkoteka!");
-            model.addAttribute("msg", msg);
-        }
+      try{
+          user.setActive(Status.NEW);
+          user.setEnabled(Boolean.FALSE);
+          if(pass.equals(pass2)){
+              user.setPassword(passwordEncoder.encode(pass));
+              UserRole userRole = UserRole.builder().user(user).role("ROLE_USER").build();
+              iUserRoleService.saveUser(userRole);
+              List<UserRole> userRoleList = new ArrayList<>();
+              userRoleList.add(userRole);
+              user.setUserRoles(userRoleList);
+              iUserService.saveUser(user);
+              String msg = String.format("Congratulations You are registered user of Ksiazkoteka, best" +
+                      " book swap with friends service ever!!! Wait for Admin to activate Your account." +
+                      " Your login is %s",user.getLogin());
+              model.addAttribute("msg", msg);
+          }else {
+              String msg = String.format("Fill registration form correctly and enjoy power of Ksiazkoteka!");
+              model.addAttribute("msg", msg);
+          }
+      }catch (Exception e){
+          String msg = String.format("Entered email adress has already been registered in Ksiazkotk, try another!");
+          model.addAttribute("msg", msg);
+
+      }
+
         return "login";
     }
 }

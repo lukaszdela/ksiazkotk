@@ -104,10 +104,10 @@ public class BooksController {
         book.setStatus(BookStatus.FREE);
         book.setActive(Status.ACTIVE);
         book.setOwner(owner);
-        List<Book> userBooks = owner.getBooks();
-        userBooks.add(book);
-        owner.setBooks(userBooks);
-        iUserService.saveUser(owner);
+//        List<Book> userBooks = owner.getBooks();
+//        userBooks.add(book);
+//        owner.setBooks(userBooks);
+//        iUserService.saveUser(owner);
         iBookService.saveBook(book);
         return "redirect:/books/user";
     }

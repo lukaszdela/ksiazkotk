@@ -34,6 +34,7 @@ public class KsiazkotkApplication {
 			User azaradna = User.builder().name("Anna").surname("Zaradna").login("azaradna@ksiazko.tk").password(passwordEncoder.encode("azaradna")).avatar("/avatars/128_6.png").active(Status.ACTIVE).enabled(Boolean.TRUE).build();
 			User pwozniak = User.builder().name("Paulina").surname("Wozniak").login("pwozniak@ksiazko.tk").password(passwordEncoder.encode("pwozniak")).avatar("/avatars/128_9.png").active(Status.ACTIVE).enabled(Boolean.TRUE).build();
 			User admin = User.builder().name("Admin").surname("Serwisu").login("admin").password(passwordEncoder.encode("admin")).avatar("/avatars/128_15.png").active(Status.INACTIVE).enabled(Boolean.TRUE).build();
+			User deleteduser = User.builder().name("Deleted").surname("User").login("deleteduser").password(passwordEncoder.encode("deleteduser")).active(Status.INACTIVE).enabled(Boolean.FALSE).build();
 
 			UserRole userRole = UserRole.builder().user(jkowalski).role("ROLE_USER").build();
 			userRoleRepository.save(userRole);
@@ -59,6 +60,11 @@ public class KsiazkotkApplication {
 			userRoleRepository.save(userRole5);
 			admin.setUserRoles(Arrays.asList(userRole5));
 			userRepository.save(admin);
+
+			UserRole userRole6 = UserRole.builder().user(deleteduser).role("ROLE_USER").build();
+			userRoleRepository.save(userRole6);
+			deleteduser.setUserRoles(Arrays.asList(userRole6));
+			userRepository.save(deleteduser);
 
 			Book book1 = Book.builder().title("Karaluchy").author("Jo Nesbo").cover("/covers/j_karaluch.jpg").status(BookStatus.FREE).active(Status.ACTIVE).build();
 			Book book2 = Book.builder().title("Pentagram").author("Jo Nesbo").cover("/covers/j_pentagram.jpg").status(BookStatus.FREE).active(Status.ACTIVE).build();

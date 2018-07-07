@@ -77,6 +77,15 @@ public class AdminController {
         return "redirect:/admin/users/all";
     }
 
+    @RequestMapping(path = "/admin/books/cover/{bookId}", method = RequestMethod.POST)
+    public String updateDefaultCover(@PathVariable("bookId")Long bookId,
+                                     @RequestParam String cover){
+        Book bookById = iBookService.readBook(bookId);
+        bookById.setCover(cover);
+        iBookService.saveBook(bookById);
+        return "redirect:/admin/books";
+    }
+
     @RequestMapping(path = "/admin/books/update/{bookId}", method = RequestMethod.POST)
     public String updateUser(@PathVariable("bookId")Long bookId,
                              @ModelAttribute Book book,
@@ -131,9 +140,14 @@ public class AdminController {
         if(password.equals(password2)){
             user.setPassword(passwordEncoder.encode(password));
             iUserService.saveUser(user);
+            String msg = String.format("Password has been changed.");
+            model.addAttribute("msg", msg);
+        }else{
+            String msg = String.format("Entered passwords do not match. Please try again.");
+            model.addAttribute("msg", msg);
         }
         model.addAttribute("user", user);
-        return "redirect:/admin/users/all";
+        return "adminpass";
     }
 
     @GetMapping(path = "/admin/books/defaultcover")
@@ -145,12 +159,12 @@ public class AdminController {
         return "admincover";
     }
 
-    @PostMapping(path = "admin/books/cover/add/{bookId}")
-    public String saveBookCover(@PathVariable("bookId") Long bookId, @RequestParam("file") MultipartFile file, Model model){
-        iBookService.saveBookCover(bookId,file);
-        List<Book> books = iBookService.getAllBooks();
-        model.addAttribute("books", books);
-        return "redirect:/";
-    }
+//    @PostMapping(path = "admin/books/cover/add/{bookId}")
+//    public String saveBookCover(@PathVariable("bookId") Long bookId, @RequestParam("file") MultipartFile file, Model model){
+//        iBookService.saveBookCover(bookId,file);
+//        List<Book> books = iBookService.getAllBooks();
+//        model.addAttribute("books", books);
+//        return "redirect:/";
+//    }
 
 }
