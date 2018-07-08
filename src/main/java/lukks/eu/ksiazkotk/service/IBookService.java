@@ -37,4 +37,6 @@ public interface IBookService {
     List<String> findAllStatus();
 
     List<String> findAllActives();
+
+    List<Book> getAllBooksForAdminOrderedByOwner();
 }

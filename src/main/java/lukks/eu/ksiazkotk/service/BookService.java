@@ -109,4 +109,9 @@ public class BookService implements IBookService{
         return Arrays.stream(Status.values())
                 .map(Status::name).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Book> getAllBooksForAdminOrderedByOwner(){
+        return bookRepository.getAllBookForAdminOrderedByOwner();
+    }
 }

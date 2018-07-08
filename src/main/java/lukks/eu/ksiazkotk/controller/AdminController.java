@@ -34,7 +34,7 @@ public class AdminController {
 
     @GetMapping("/admin/books")
     public String getAdminBooks(Model model){
-        List<Book> books = iBookService.getAllBook();
+        List<Book> books = iBookService.getAllBooksForAdminOrderedByOwner();
         List<User> users = iUserService.getAllUser();
         List<String> statuses =iBookService.findAllStatus();
         List<String> actives = iBookService.findAllActives();
