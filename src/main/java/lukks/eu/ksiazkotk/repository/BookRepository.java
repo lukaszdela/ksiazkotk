@@ -35,4 +35,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("select e from Book e inner join e.owner ow where ow.login = :login and e.active = 'ACTIVE' and e.status = 'FREE'")
     List<Book> getUserFreeBooks(@Param("login") String login);
 
+    @Query("select e from Book e inner join e.owner ow where ow.login = :login and e.status = 'FREE'")
+    List<Book> getUserFreeBooksInactive(@Param("login") String login);
+
 }

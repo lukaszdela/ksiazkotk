@@ -18,6 +18,8 @@ public interface IBookService {
 
     List<Book> getAllBook();
 
+    List<Book> getUserFreeBooksInactive(String login);
+
     List<Book> getUserFreeBooks(String login);
 
     List<Book> getUserBooks(String login);

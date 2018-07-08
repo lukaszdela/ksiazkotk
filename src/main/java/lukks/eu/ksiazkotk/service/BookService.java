@@ -56,6 +56,11 @@ public class BookService implements IBookService{
     }
 
     @Override
+    public List<Book> getUserFreeBooksInactive(String login){
+        return bookRepository.getUserFreeBooksInactive(login);
+    }
+
+    @Override
     public List<Book> getUserFreeBooks(String login){
         return bookRepository.getUserFreeBooks(login);
     }

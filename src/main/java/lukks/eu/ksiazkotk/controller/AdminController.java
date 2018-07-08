@@ -65,21 +65,21 @@ public class AdminController {
         userById.setSurname(user.getSurname());
         userById.setPassword(user.getPassword());
 
-//        if(userById.getActive().equals(Status.INACTIVE)){
-//            List<Book> books = iBookService.getUserFreeBooks(userById.getLogin());
-//            for (Book book: books) {
-//                book.setActive(Status.INACTIVE);
-//                iBookService.saveBook(book);
-//            }
-//        }
-//
-//        if(userById.getActive().equals(Status.ACTIVE)){
-//            List<Book> books = iBookService.getUserFreeBooks(userById.getLogin());
-//            for (Book book: books) {
-//                book.setActive(Status.ACTIVE);
-//                iBookService.saveBook(book);
-//            }
-//        }
+        if(userById.getActive().equals(Status.INACTIVE)){
+            List<Book> books = iBookService.getUserFreeBooks(userById.getLogin());
+            for (Book book: books) {
+                book.setActive(Status.INACTIVE);
+                iBookService.saveBook(book);
+            }
+        }
+
+        if(userById.getActive().equals(Status.ACTIVE)){
+            List<Book> books = iBookService.getUserFreeBooksInactive(userById.getLogin());
+            for (Book book: books) {
+                book.setActive(Status.ACTIVE);
+                iBookService.saveBook(book);
+            }
+        }
 
         iUserService.saveUser(userById);
         return "redirect:/admin/users/all";
