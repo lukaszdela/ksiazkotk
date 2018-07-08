@@ -17,5 +17,7 @@ public interface IUserService {
 
     User getUserByLogin(String login);
 
+    void deleteUserById(Long id);
+
 //    Optional<User> getUserById(Long id);
 }

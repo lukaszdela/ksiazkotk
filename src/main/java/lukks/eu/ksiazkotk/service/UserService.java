@@ -48,6 +48,9 @@ public class UserService implements IUserService{
         return userRepository.getUserByLogin(login);
     }
 
-
+    @Override
+    public void deleteUserById(Long id){
+       userRepository.deleteById(id);
+    }
 
 }

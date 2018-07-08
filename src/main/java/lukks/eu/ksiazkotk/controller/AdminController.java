@@ -72,6 +72,14 @@ public class AdminController {
 //                iBookService.saveBook(book);
 //            }
 //        }
+//
+//        if(userById.getActive().equals(Status.ACTIVE)){
+//            List<Book> books = iBookService.getUserFreeBooks(userById.getLogin());
+//            for (Book book: books) {
+//                book.setActive(Status.ACTIVE);
+//                iBookService.saveBook(book);
+//            }
+//        }
 
         iUserService.saveUser(userById);
         return "redirect:/admin/users/all";
@@ -158,6 +166,25 @@ public class AdminController {
         model.addAttribute("books", books);
         return "admincover";
     }
+
+//    @GetMapping(path = "/admin/users/delete/{userId}")
+//    public String deleteUserById(@PathVariable("userId")Long userId){
+//        User user = iUserService.readUser(userId);
+//        if (!user.getLogin().equals("admin") || !user.getLogin().equals("deleteduser")) {
+//            List<Book> books = new ArrayList<>();
+//            books.addAll(user.getBooks());
+//            user.setBooks(null);
+//            User deletedUser = iUserService.getUserByLogin("deleteduser");
+//            for(Book book:books){
+//                book.setOwner(deletedUser);
+//                iBookService.saveBook(book);
+//            }
+//            deletedUser.setBooks(books);
+//            iUserService.deleteUserById(userId);
+//            iUserService.saveUser(deletedUser);
+//        }
+//        return "redirect:/admin/users/all";
+//    }
 
 //    @PostMapping(path = "admin/books/cover/add/{bookId}")
 //    public String saveBookCover(@PathVariable("bookId") Long bookId, @RequestParam("file") MultipartFile file, Model model){

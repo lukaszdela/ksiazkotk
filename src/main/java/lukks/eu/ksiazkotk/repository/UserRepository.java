@@ -14,6 +14,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select e from User e where e.login = :login")
     User getUserByLogin(@Param("login") String login);
 
+    @Query("delete from User e where e.id = :id")
+    void deleteUserById(@Param("id") Long id);
+
     @Query("select e from User e where e.active = 'ACTIVE'")
     List<User> getAllUsers();
 
