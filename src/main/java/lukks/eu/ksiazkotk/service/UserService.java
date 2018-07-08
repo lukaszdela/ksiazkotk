@@ -39,8 +39,8 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public List<User> getAllUser(){
-        return userRepository.getAllUser();
+    public List<User> getAllUsersForAdmin(){
+        return userRepository.getAllUsersForAdmin();
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface IUserService {
 
     List<User> getAllUsers();
 
-    List<User> getAllUser();
+    List<User> getAllUsersForAdmin();
 
     User getUserByLogin(String login);
 

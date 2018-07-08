@@ -35,7 +35,7 @@ public class AdminController {
     @GetMapping("/admin/books")
     public String getAdminBooks(Model model){
         List<Book> books = iBookService.getAllBooksForAdminOrderedByOwner();
-        List<User> users = iUserService.getAllUser();
+        List<User> users = iUserService.getAllUsersForAdmin();
         List<String> statuses =iBookService.findAllStatus();
         List<String> actives = iBookService.findAllActives();
         model.addAttribute("books", books);
@@ -47,7 +47,7 @@ public class AdminController {
 
     @GetMapping("/admin/users/all")
     public String getAdminUsers(Model model){
-        List<User> users = iUserService.getAllUser();
+        List<User> users = iUserService.getAllUsersForAdmin();
         List<String> actives = iBookService.findAllActives();
         model.addAttribute("users", users);
         model.addAttribute("actives", actives);

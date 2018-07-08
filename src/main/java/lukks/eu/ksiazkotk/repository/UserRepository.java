@@ -20,6 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select e from User e where e.active = 'ACTIVE'")
     List<User> getAllUsers();
 
-    @Query("select e from User e")
-    List<User> getAllUser();
+    @Query("select e from User e order by surname")
+    List<User> getAllUsersForAdmin();
 }
