@@ -1,10 +1,8 @@
 package lukks.eu.ksiazkotk.controller;
 
-import lukks.eu.ksiazkotk.model.Book;
-import lukks.eu.ksiazkotk.model.BookStatus;
-import lukks.eu.ksiazkotk.model.Status;
-import lukks.eu.ksiazkotk.model.User;
+import lukks.eu.ksiazkotk.model.*;
 import lukks.eu.ksiazkotk.service.IBookService;
+import lukks.eu.ksiazkotk.service.IUserRoleService;
 import lukks.eu.ksiazkotk.service.IUserService;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +22,14 @@ public class AdminController {
     private IUserService iUserService;
     private PasswordEncoder passwordEncoder;
     private IBookService iBookService;
+    private IUserRoleService iUserRoleService;
 
     @Autowired
-    public AdminController(IUserService iUserService, PasswordEncoder passwordEncoder, IBookService iBookService) {
+    public AdminController(IUserService iUserService, PasswordEncoder passwordEncoder, IBookService iBookService, IUserRoleService iUserRoleService) {
         this.iUserService = iUserService;
         this.passwordEncoder = passwordEncoder;
         this.iBookService = iBookService;
+        this.iUserRoleService = iUserRoleService;
     }
 
     @GetMapping("/admin/books")
@@ -167,24 +167,38 @@ public class AdminController {
         return "admincover";
     }
 
-//    @GetMapping(path = "/admin/users/delete/{userId}")
-//    public String deleteUserById(@PathVariable("userId")Long userId){
-//        User user = iUserService.readUser(userId);
-//        if (!user.getLogin().equals("admin") || !user.getLogin().equals("deleteduser")) {
-//            List<Book> books = new ArrayList<>();
-//            books.addAll(user.getBooks());
-//            user.setBooks(null);
-//            User deletedUser = iUserService.getUserByLogin("deleteduser");
-//            for(Book book:books){
-//                book.setOwner(deletedUser);
-//                iBookService.saveBook(book);
-//            }
-//            deletedUser.setBooks(books);
-//            iUserService.deleteUserById(userId);
-//            iUserService.saveUser(deletedUser);
-//        }
-//        return "redirect:/admin/users/all";
-//    }
+    @GetMapping(path = "/admin/users/delete/{userId}")
+    public String deleteUserById(@PathVariable("userId")Long userId){
+        User user = iUserService.readUser(userId);
+
+        if (!user.getLogin().equals("admin")) {
+            List<Book> books = new ArrayList<>();
+            List<Book> borrowedBooks = new ArrayList<>();
+            borrowedBooks.addAll(user.getBorrowerBooks());
+            books.addAll(user.getBooks());
+            user.setBooks(null);
+            user.setUserRoles(null);
+            user.setBorrowerBooks(null);
+            User deletedUser = iUserService.getUserByLogin("deleteduser");
+            for (Book book: borrowedBooks){
+                book.setBorower(deletedUser);
+                iBookService.saveBook(book);
+            }
+            for(Book book:books){
+                if(book.getStatus().equals(BookStatus.FREE)){
+                    book.setActive(Status.DELETED);
+                }
+                book.setOwner(deletedUser);
+                iBookService.saveBook(book);
+            }
+            deletedUser.setBooks(books);
+            iUserService.saveUser(user);
+            iUserService.saveUser(deletedUser);
+            UserRole userRole = iUserRoleService.getUserRoleByUserId(userId);
+            iUserRoleService.deleteByUserId(userRole.getId());
+        }
+        return "redirect:/admin/users/all";
+    }
 
 //    @PostMapping(path = "admin/books/cover/add/{bookId}")
 //    public String saveBookCover(@PathVariable("bookId") Long bookId, @RequestParam("file") MultipartFile file, Model model){
