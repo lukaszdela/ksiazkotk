@@ -171,7 +171,7 @@ public class AdminController {
     public String deleteUserById(@PathVariable("userId")Long userId){
         User user = iUserService.readUser(userId);
 
-        if (!user.getLogin().equals("admin")) {
+        if (!user.getLogin().equals("admin") || !user.getLogin().equals("deleteduser")) {
             List<Book> books = new ArrayList<>();
             List<Book> borrowedBooks = new ArrayList<>();
             borrowedBooks.addAll(user.getBorrowerBooks());
@@ -200,6 +200,20 @@ public class AdminController {
         return "redirect:/admin/users/all";
     }
 
+    @GetMapping(path = "/admin/books/delete/{bookId}")
+    public String deleteBookById(@PathVariable("bookId")Long bookId){
+        Book book = iBookService.readBook(bookId);
+        if (book.getOwner().getLogin().equals("deleteduser") && book.getActive().equals(Status.DELETED)){
+            User owner = iUserService.readUser(book.getOwner().getId());
+            List<Book> ownerBooks = owner.getBooks();
+            ownerBooks.remove(book);
+            List<Book> newOwnerBooks = new ArrayList<>();
+            newOwnerBooks.addAll(ownerBooks);
+            iUserService.saveUser(owner);
+            iBookService.deleteBook(bookId);
+        }
+        return "redirect:/admin/books";
+    }
 //    @PostMapping(path = "admin/books/cover/add/{bookId}")
 //    public String saveBookCover(@PathVariable("bookId") Long bookId, @RequestParam("file") MultipartFile file, Model model){
 //        iBookService.saveBookCover(bookId,file);
