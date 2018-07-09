@@ -96,7 +96,7 @@ public class BooksController {
     }
 
     @PostMapping(value = "/book/addbook/new")
-    public String addNewBook(@ModelAttribute Book book){
+    public String addNewBook(@ModelAttribute Book book, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User owner = iUserService.getUserByLogin(username);
@@ -109,7 +109,9 @@ public class BooksController {
         owner.setBooks(userBooks);
         iUserService.saveUser(owner);
         iBookService.saveBook(book);
-        return "redirect:/books/user";
+        String msg = String.format("New book has been added. Wait for admin to add cover and activate new book.");
+        model.addAttribute("msg", msg);
+        return "addbook";
     }
 
     @RequestMapping(path = "/books/borrow/{bookId}", method = RequestMethod.GET)
