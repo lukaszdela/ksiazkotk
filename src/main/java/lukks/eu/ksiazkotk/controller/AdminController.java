@@ -56,32 +56,35 @@ public class AdminController {
 
     @RequestMapping(path = "/admin/users/update/{userId}", method = RequestMethod.POST)
     public String updateUser(@PathVariable("userId")Long userId,@ModelAttribute User user){
-        User userById = iUserService.readUser(userId);
-        userById.setEnabled(user.getEnabled());
-        userById.setActive(user.getActive());
-        userById.setAvatar(user.getAvatar());
-        userById.setLogin(user.getLogin());
-        userById.setName(user.getName());
-        userById.setSurname(user.getSurname());
-        userById.setPassword(user.getPassword());
+        try {
+            User userById = iUserService.readUser(userId);
+            userById.setEnabled(user.getEnabled());
+            userById.setActive(user.getActive());
+            userById.setAvatar(user.getAvatar());
+            userById.setLogin(user.getLogin());
+            userById.setName(user.getName());
+            userById.setSurname(user.getSurname());
+            userById.setPassword(user.getPassword());
 
-        if(userById.getActive().equals(Status.INACTIVE)){
-            List<Book> books = iBookService.getUserFreeBooks(userById.getLogin());
-            for (Book book: books) {
-                book.setActive(Status.INACTIVE);
-                iBookService.saveBook(book);
+            if (userById.getActive().equals(Status.INACTIVE)) {
+                List<Book> books = iBookService.getUserFreeBooks(userById.getLogin());
+                for (Book book : books) {
+                    book.setActive(Status.INACTIVE);
+                    iBookService.saveBook(book);
+                }
             }
-        }
 
-        if(userById.getActive().equals(Status.ACTIVE)){
-            List<Book> books = iBookService.getUserFreeBooksInactive(userById.getLogin());
-            for (Book book: books) {
-                book.setActive(Status.ACTIVE);
-                iBookService.saveBook(book);
+            if (userById.getActive().equals(Status.ACTIVE)) {
+                List<Book> books = iBookService.getUserFreeBooksInactive(userById.getLogin());
+                for (Book book : books) {
+                    book.setActive(Status.ACTIVE);
+                    iBookService.saveBook(book);
+                }
             }
-        }
 
-        iUserService.saveUser(userById);
+            iUserService.saveUser(userById);
+        }catch (Exception e){
+        }
         return "redirect:/admin/users/all";
     }
 
