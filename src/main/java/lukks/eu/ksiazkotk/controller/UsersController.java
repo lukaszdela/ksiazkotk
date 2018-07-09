@@ -36,14 +36,22 @@ public class UsersController {
 
     @PostMapping("/user/email")
     public String changeUserEmail(@RequestParam("email") String email, Model model, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = iUserService.getUserByLogin(username);
-        user.setLogin(email);
-        iUserService.saveUser(user);
-        new SecurityContextLogoutHandler().logout(request, null, authentication);
-        String msg = String.format("Your new mail and login is %s",email);
-        model.addAttribute("msg", msg);
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username = authentication.getName();
+            User user = iUserService.getUserByLogin(username);
+            user.setLogin(email);
+            iUserService.saveUser(user);
+            new SecurityContextLogoutHandler().logout(request, null, authentication);
+            String msg = String.format("Your new mail and login is %s", email);
+            model.addAttribute("msg", msg);
+        }catch (Exception e){
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            new SecurityContextLogoutHandler().logout(request, null, authentication);
+            String msg = String.format("Entered email adress has already been registered in Ksiazkotk. Your mail has not been changed try another!");
+            model.addAttribute("msg", msg);
+
+        }
         return "login";
     }
 
