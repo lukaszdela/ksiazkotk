@@ -86,8 +86,8 @@ public class BookService implements IBookService{
     }
 
     @Override
-    public List<Book> getDefaultCoverBooks(){
-        return bookRepository.getDefaultCoverBooks();
+    public List<Book> getNewBooks(){
+        return bookRepository.getNewBooks();
     }
 
     @Override

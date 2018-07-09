@@ -90,6 +90,7 @@ public class AdminController {
                                      @RequestParam String cover){
         Book bookById = iBookService.readBook(bookId);
         bookById.setCover(cover);
+        bookById.setActive(Status.ACTIVE);
         iBookService.saveBook(bookById);
         return "redirect:/admin/books";
     }
@@ -158,13 +159,13 @@ public class AdminController {
         return "adminpass";
     }
 
-    @GetMapping(path = "/admin/books/defaultcover")
+    @GetMapping(path = "/admin/books/new")
     public String getDefaultCoverBooks(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        List<Book> books = iBookService.getDefaultCoverBooks();
+        List<Book> books = iBookService.getNewBooks();
         model.addAttribute("books", books);
-        return "admincover";
+        return "adminnewbooks";
     }
 
     @GetMapping(path = "/admin/users/delete/{userId}")

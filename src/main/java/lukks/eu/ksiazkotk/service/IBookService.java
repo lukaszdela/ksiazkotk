@@ -30,7 +30,7 @@ public interface IBookService {
 
     List<Book> getAllBooks();
 
-    List<Book> getDefaultCoverBooks();
+    List<Book> getNewBooks();
 
     void saveBookCover(Long bookId, MultipartFile file);
 

@@ -102,12 +102,12 @@ public class BooksController {
         User owner = iUserService.getUserByLogin(username);
         book.setCover("/covers/default.jpg");
         book.setStatus(BookStatus.FREE);
-        book.setActive(Status.ACTIVE);
+        book.setActive(Status.NEW);
         book.setOwner(owner);
-//        List<Book> userBooks = owner.getBooks();
-//        userBooks.add(book);
-//        owner.setBooks(userBooks);
-//        iUserService.saveUser(owner);
+        List<Book> userBooks = owner.getBooks();
+        userBooks.add(book);
+        owner.setBooks(userBooks);
+        iUserService.saveUser(owner);
         iBookService.saveBook(book);
         return "redirect:/books/user";
     }
