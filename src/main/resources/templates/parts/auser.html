@@ -6,7 +6,7 @@
 
                 <tbody>
                 <tr>
-                    <form th:action="@{/admin/user/update/{userId}(userId=${user.id})}" method="post">
+                    <form th:action="@{/admin/users/update/{userId}(userId=${user.id})}" method="post">
                     <td align="center">
                         <input type="text" class="form-control" name="name" th:value="${user.name}">
                     </td>

@@ -36,7 +36,7 @@ public class BooksController {
         return "book";
     }
 
-    @GetMapping("/book/addbook")
+    @GetMapping("/books/addbook")
     public String addBookForm(){
         return "addbook";
     }
@@ -95,7 +95,7 @@ public class BooksController {
         return "book";
     }
 
-    @PostMapping(value = "/book/addbook/new")
+    @PostMapping(value = "/books/addbook/new")
     public String addNewBook(@ModelAttribute Book book, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

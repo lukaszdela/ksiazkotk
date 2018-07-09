@@ -54,7 +54,7 @@ public class AdminController {
         return "adminuser";
     }
 
-    @RequestMapping(path = "/admin/user/update/{userId}", method = RequestMethod.POST)
+    @RequestMapping(path = "/admin/users/update/{userId}", method = RequestMethod.POST)
     public String updateUser(@PathVariable("userId")Long userId,@ModelAttribute User user){
         User userById = iUserService.readUser(userId);
         userById.setEnabled(user.getEnabled());
