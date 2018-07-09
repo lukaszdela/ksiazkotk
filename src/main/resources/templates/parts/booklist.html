@@ -15,12 +15,15 @@
                     <tr>
                         <td align="center" th:text="${book.getAuthor()}">...</td>
                     </tr>
-                    <div th:if="${#strings.toString(book.active).equals('ACTIVE')}">
-
 
                         <div th:if="${#strings.toString(book.status).equals('READ')}">
 
                                 <div th:if="${#strings.toString(book.borower.login) != loggedUser}">
+                                    <tr>
+                                        <td align="center">
+                                            <button th:text="${book.owner.name + ' ' + book.owner.surname}" type="button" class="btn btn-danger"></button>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td align="center">
                                             <button th:text="${book.borower.name + ' ' + book.borower.surname}" type="button" class="btn btn-danger"></button>
@@ -30,7 +33,7 @@
                                 <div th:if="${#strings.toString(book.borower.login).equals(loggedUser)}">
                                     <tr>
                                         <td align="center">
-                                            <button th:text="${#strings.toString(book.borower.name) + ' ' + #strings.toString(book.borower.surname)}" type="button" class="btn btn-danger"></button>
+                                            <button th:text="${#strings.toString(book.owner.name) + ' ' + #strings.toString(book.owner.surname)}" type="button" class="btn btn-danger"></button>
                                         </td>
                                     </tr>
                                     <tr sec:authorize="hasAnyRole('ROLE_USER')">
@@ -49,10 +52,14 @@
 
 
                                 <div th:if="${#strings.toString(book.borower.login) != loggedUser}">
-
                                     <tr>
                                         <td align="center">
                                             <button th:text="${book.owner.name + ' ' + book.owner.surname}" type="button" class="btn btn-primary"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <button th:text="${book.borower.name + ' ' + book.borower.surname}" type="button" class="btn btn-primary"></button>
                                         </td>
                                     </tr>
                                 </div>
@@ -118,6 +125,11 @@
                             <div th:if="${!loggedUser.equals(book.owner.login)}">
                                 <tr>
                                     <td align="center">
+                                        <button th:text="${#strings.toString(book.owner.name) + ' ' + #strings.toString(book.owner.surname)}" type="button" class="btn btn-warning"></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
                                         <button th:text="${#strings.toString(book.borower.name) + ' ' + #strings.toString(book.borower.surname)}" type="button" class="btn btn-warning"></button>
                                     </td>
                                 </tr>
@@ -139,7 +151,6 @@
                             </div>
                         </div>
 
-                    </div>
                     </tbody>
                 </table>
             </div>
