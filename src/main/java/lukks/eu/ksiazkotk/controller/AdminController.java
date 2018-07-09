@@ -214,6 +214,47 @@ public class AdminController {
         }
         return "redirect:/admin/books";
     }
+
+//when delete user, delete user books with status free
+//    @GetMapping(path = "/admin/users/delete/{userId}")
+//    public String deleteUserById(@PathVariable("userId")Long userId){
+//        User user = iUserService.readUser(userId);
+//
+//        if (!user.getLogin().equals("admin") || !user.getLogin().equals("deleteduser")) {
+//            List<Book> books = new ArrayList<>();
+//            List<Book> booksUpdated = new ArrayList<>();
+//            List<Book> borrowedBooks = new ArrayList<>();
+//            borrowedBooks.addAll(user.getBorrowerBooks());
+//            books.addAll(user.getBooks());
+//            user.setBooks(null);
+//            user.setUserRoles(null);
+//            user.setBorrowerBooks(null);
+//            User deletedUser = iUserService.getUserByLogin("deleteduser");
+//            for (Book book: borrowedBooks){
+//                book.setBorower(deletedUser);
+//                iBookService.saveBook(book);
+//            }
+//            for(Book book:books){
+//                if(book.getStatus().equals(BookStatus.FREE)){
+//                iBookService.deleteBook(book.getId());
+//                }else {
+//                    booksUpdated.add(book);
+//                    book.setOwner(deletedUser);
+//                    iBookService.saveBook(book);
+//                }
+//            }
+//            user.setBooks(null);
+//            deletedUser.setBooks(booksUpdated);
+//            iUserService.saveUser(user);
+//            iUserService.saveUser(deletedUser);
+//            UserRole userRole = iUserRoleService.getUserRoleByUserId(userId);
+//            iUserRoleService.deleteByUserId(userRole.getId());
+//        }
+//        return "redirect:/admin/users/all";
+//    }
+
+
+//    cover file add to server and path to cover in book entity
 //    @PostMapping(path = "admin/books/cover/add/{bookId}")
 //    public String saveBookCover(@PathVariable("bookId") Long bookId, @RequestParam("file") MultipartFile file, Model model){
 //        iBookService.saveBookCover(bookId,file);
